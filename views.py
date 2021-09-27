@@ -20,7 +20,7 @@ class BrowsDriver:
     def __init__(self):
         self.username = ACCOUNT
         self.password = PASSWORD
-        self.driver = webdriver.Edge(executable_path='./msedgedriver.exe')
+        self.driver = webdriver.Edge(executable_path='./tools/msedgedriver.exe')
         self.url = 'https://space.bilibili.com/'
         self.wait = WebDriverWait(self.driver, 10)
         self.cookie = ''

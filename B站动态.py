@@ -3,7 +3,6 @@ from time import sleep
 from msedge.selenium_tools import EdgeOptions
 from msedge.selenium_tools import Edge
 from collections import Counter
-from rich.progress import track
 import os
 
 # 页面下拉

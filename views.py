@@ -1,16 +1,13 @@
-from selenium.webdriver.support import wait
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from bs4 import BeautifulSoup
 from mytool import jsinfo, get_url
 from requests import get
 from lxml import etree
 from rich.progress import track
 from time import sleep
 import re
-import json
 
 ACCOUNT = '17868388536'
 PASSWORD = 'jixianmaimeng1'

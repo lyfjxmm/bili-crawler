@@ -22,7 +22,7 @@ def getData(uid):
         edge_options = EdgeOptions()
         edge_options.use_chromium = True
         edge_options.add_argument('headless')
-        driver = Edge(executable_path='./msedgedriver.exe', options=edge_options)
+        driver = Edge(executable_path='./tools/msedgedriver.exe', options=edge_options)
         driver.get('https://space.bilibili.com/' + str(uid) + '/dynamic')
         # 移动到底部,直到没有动态为止
         while 1:

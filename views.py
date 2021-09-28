@@ -2,7 +2,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium import webdriver
-from mytool import jsinfo, get_url
+from mytool import jsinfo
 from requests import get
 from lxml import etree
 from rich.progress import track

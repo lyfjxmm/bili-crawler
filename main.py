@@ -60,7 +60,7 @@ if __name__ == '__main__':
     biliSql.create_database()
     biliSql.create_upinfo_table()
     # 主程序 设置B站uid，将关注的up导入数据库
-    biliuser = User(672328094)
+    biliuser = User(15810)
     insert_user_follow_uid(biliuser)
     # 更新数据
     insert_videoinfo()  # 更新投稿分区

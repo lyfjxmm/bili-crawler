@@ -1,4 +1,4 @@
-import json
+import configparser
 from requests import get
 from jsonpath import jsonpath
 
@@ -31,3 +31,18 @@ def dict_to_tuple(videodict):
         for j in videodict[i]:
             tempList[area_dict[j]] = videodict[i][j]
     return tuple(tempList)
+
+
+class biliconfig:
+    def __init__(self):
+        self.config = configparser.ConfigParser()
+        self.config.read(
+            './config.ini', encoding='utf-8')
+
+        self.host = self.config.get('MySQL', 'host')
+        self.user = self.config.get('MySQL', 'user')
+        self.password = self.config.get('MySQL', 'password')
+        self.port = self.config.getint('MySQL', 'port')
+
+        self.biliname = self.config.get('Bili', 'username')
+        self.bilipwd = self.config.get('Bili', 'password')

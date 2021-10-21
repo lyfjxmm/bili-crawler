@@ -8,9 +8,11 @@ from lxml import etree
 from rich.progress import track
 from time import sleep
 import re
+from mytool import biliconfig
+config=biliconfig()
 
-ACCOUNT = '17868388536'
-PASSWORD = 'jixianmaimeng1'
+ACCOUNT = config.biliname
+PASSWORD = config.bilipwd
 
 
 class BrowsDriver:

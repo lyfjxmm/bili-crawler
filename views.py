@@ -8,9 +8,13 @@ from lxml import etree
 from rich.progress import track
 from time import sleep
 import re
+import configparser
+config = configparser.ConfigParser()
+config.read(
+    './config.ini', encoding='utf-8')
 
-ACCOUNT = '17868388536'
-PASSWORD = 'jixianmaimeng1'
+ACCOUNT = config.get('Bilibili', 'username')
+PASSWORD = config.get('Bilibili', 'password')
 
 
 class BrowsDriver:

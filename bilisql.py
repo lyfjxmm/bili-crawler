@@ -1,17 +1,26 @@
 from typing import final
 import pymysql
 import re
+import configparser
 
+config = configparser.ConfigParser()
+config.read(
+    './config.ini', encoding='utf-8')
 
-class SQLOperating:
+HOST = config.get('MySQL', 'host')
+USER = config.get('MySQL', 'user')
+PASSWORD = config.get('MySQL', 'password')
+PORT = config.getint('MySQL', 'port')
+
+class SQLOperating:    
     def __init__(self):
         self.conn = pymysql.connect(
-            host='localhost', user='root', password='123123', port=3306)
+            host=HOST, user=USER, password=PASSWORD, port=PORT)
         self.cursor = self.conn.cursor()
 
     def get_conn(self):
         self.conn = pymysql.connect(
-            host='localhost', user='root', password='123123', port=3306, db='bili')
+            host=HOST, user=USER, password=PASSWORD, port=PORT, db='bili')
         self.cursor = self.conn.cursor()
 
     def close_conn(self):
@@ -162,7 +171,7 @@ class SQLOperating:
             self.close_conn()
             return None
 
-    def insert_up_views(self,upview):
+    def insert_up_views(self, upview):
         self.get_conn()
         sql = 'UPDATE `bili`.`all_up_info` SET `播放数`=%s,`获赞数`=%s,`阅读数`=%s WHERE uid=%s '
         try:

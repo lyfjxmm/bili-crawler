@@ -1,9 +1,15 @@
 import pandas as pd
 from sqlalchemy import create_engine
 import pandas_profiling
+from mytool import biliconfig
+config = biliconfig()
 
-
-engine = create_engine('mysql+pymysql://root:123123@localhost:3306/bili')
+HOST = config.host
+USER = config.user
+PASSWORD = config.password
+PORT = config.port
+engine = create_engine('mysql+pymysql://'+USER+':' +
+                       PASSWORD+'@'+HOST+':'+str(PORT)+'/bili')
 sql = 'SELECT * FROM all_up_info'
 df = pd.read_sql_query(sql, engine)
 

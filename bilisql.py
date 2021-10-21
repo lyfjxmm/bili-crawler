@@ -1,16 +1,13 @@
 from typing import final
 import pymysql
 import re
-import configparser
+from mytool import biliconfig
+config=biliconfig()
 
-config = configparser.ConfigParser()
-config.read(
-    './config.ini', encoding='utf-8')
-
-HOST = config.get('MySQL', 'host')
-USER = config.get('MySQL', 'user')
-PASSWORD = config.get('MySQL', 'password')
-PORT = config.getint('MySQL', 'port')
+HOST = config.host
+USER = config.user
+PASSWORD = config.password
+PORT = config.port
 
 class SQLOperating:    
     def __init__(self):

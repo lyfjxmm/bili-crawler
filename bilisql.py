@@ -50,7 +50,7 @@ class SQLOperating:
                 pass
             else:
                 sql = '''
-                    CREATE TABLE `allupinfo`  (
+                    CREATE TABLE `all_up_info`  (
                     `uid` int NOT NULL,
                     `用户名` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
                     `性别` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

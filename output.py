@@ -3,6 +3,8 @@ import numpy as np
 from sqlalchemy import create_engine
 import pandas_profiling
 from mytool import biliconfig
+from xpinyin import Pinyin
+
 config = biliconfig()
 
 HOST = config.host
@@ -20,10 +22,13 @@ df['最多投稿分区'] = df.apply(
 df['十万粉丝'] = df.apply(lambda x: '十万粉以上' if x.粉丝数 > 100000 else '以下', axis=1)
 
 df.drop(df.columns[13:36], axis=1, inplace=True)
-# 导出报告
-porfile = pandas_profiling.ProfileReport(df)
-filepath = './关系报告.html'
-porfile.to_file(filepath)
 # 导出csv
 path = './B站UP主数据.csv'
 df.to_csv(path, index=False)
+# 导出报告
+lieming = [column for column in df]
+pinyin = [Pinyin().get_pinyin(_) for _ in lieming]
+df.columns = pinyin
+porfile = pandas_profiling.ProfileReport(df)
+filepath = './关系报告.html'
+porfile.to_file(filepath)

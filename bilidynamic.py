@@ -7,6 +7,7 @@ import os
 
 # 页面下拉
 js = "window.scrollTo(0, document.body.scrollHeight)"
+zhuanfalist = []
 
 
 def downPage(driver):
@@ -69,6 +70,7 @@ def outTxt(emoji, text):
 
 
 def dynamicAnalyse(tree):
+
     info_list = tree.xpath('//*[@class="main-content"]')
     for info in info_list:
         date = info.xpath('div[2]/a/text()')  # 发布日期
@@ -91,6 +93,7 @@ def dynamicAnalyse(tree):
                         'div[3]//*[@class="up-info-tip"]/text()')[0]
                     upName = info.xpath(
                         'div[3]/div[2]/div/div[1]/a[2]/text()')[0]  # 转发的 原UPid
+                    zhuanfalist.append(upName)
                     print(
                         '\t\t\t*转发了 * {name} * {info}* '.format(name=upName, info=info_tip), end='')
                     if '图片' in info_tip:
@@ -145,6 +148,11 @@ def tagAnalyse(tree):
     top5list = taglist.most_common(5)
     print('动态中包含tag Top5：')
     for i in top5list:
+        print('\t{tag}总共出现：{time}次'.format(tag=i[0], time=i[1]))
+    # 最常转发UP主
+    top5Zfup = Counter(zhuanfalist).most_common(5)
+    print('最常转发up主Top5')
+    for i in top5Zfup:
         print('\t{tag}总共出现：{time}次'.format(tag=i[0], time=i[1]))
     # 看看抽奖
     drawlist = [i for i in keywordlist if 'u200b互动抽奖' in repr(i)]

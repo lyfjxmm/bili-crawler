@@ -1,6 +1,5 @@
 from pyecharts.globals import ThemeType
 from mytool import biliconfig
-from user import User
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
@@ -30,14 +29,6 @@ def get_data():
 
     df.drop(df.columns[13:36], axis=1, inplace=True)
     return df
-
-# 用户关注的dataframe
-
-
-def user_following_df(uid, df):
-    followlist = User(uid).follow_list()
-    userDf = df[df['uid'].apply(lambda x: x in followlist)]
-    return userDf
 
 
 def create_pie(df) -> Pie:
@@ -73,12 +64,11 @@ def create_pie(df) -> Pie:
 
 def out_table_html():
     df = get_data()
-    # df = user_following_df(15810, df)
     page = Page(layout=Page.SimplePageLayout)
     page.add(
         create_pie(df),
     )
-    page.render("分析数据.html")
+    page.render("总表数据分析.html")
 
 
 if __name__ == "__main__":

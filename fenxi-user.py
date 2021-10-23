@@ -13,10 +13,8 @@ USER = config.user
 PASSWORD = config.password
 PORT = config.port
 
-# MySQL拿数据
 
-
-def get_data():
+def get_data(uid):
     engine = create_engine('mysql+pymysql://'+USER+':' +
                            PASSWORD+'@'+HOST+':'+str(PORT)+'/bili')
     sql = 'SELECT * FROM all_up_info'
@@ -30,46 +28,50 @@ def get_data():
                           100000 else '以下', axis=1)
 
     df.drop(df.columns[13:36], axis=1, inplace=True)
-    return df
-
-# 用户关注的dataframe
-
-
-def user_following_df(uid, df):
+    # 用户关注的dataframe
     followlist = User(uid).follow_list()
     userDf = df[df['uid'].apply(lambda x: x in followlist)]
     return userDf
 
 
-# 生成图表
-# 生成基础饼图
-
-
-def create_pie(df, text, title) -> Pie:
-    data = df['{}'.format(text)].value_counts().to_dict()
+def create_pie(df) -> Pie:
+    fans = df['十万粉丝'].value_counts().to_dict()
+    vip = df['大会员'].value_counts().to_dict()
+    area = df['最多投稿分区'].value_counts().to_dict()
     pie = (
         Pie(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
         .add(
-            "", 
-            [list(z) for z in zip(data.keys(), data.values())],
-            radius=["30%", "75%"],
-            # center=["75%", "50%"],
+            "",
+            [list(z) for z in zip(fans.keys(), fans.values())],
+            radius=["20%", "50%"],
+            center=["16%", "50%"],
+            rosetype="radius",
+            label_opts=opts.LabelOpts(is_show=False),)
+        .add(
+            "",
+            [list(z) for z in zip(vip.keys(), vip.values())],
+            radius=["20%", "50%"],
+            center=["48%", "50%"],
             rosetype="radius",)
-        .set_global_opts(title_opts=opts.TitleOpts(title="{}".format(title)))
+        .add(
+            "",
+            [list(z) for z in zip(area.keys(), area.values())],
+            radius=["20%", "50%"],
+            center=["80%", "50%"],
+            rosetype="radius",)
+        .set_global_opts(title_opts=opts.TitleOpts(title="粉丝量，大会员，最常投稿分区"))
     )
     return pie
 
 
-def out_table_html():
-    df = get_data()
-    # df = user_following_df(15810, df)
+def out_table_html(uid):
+    df = get_data(uid)
     page = Page(layout=Page.SimplePageLayout)
     page.add(
-        create_pie(df,'十万粉丝','粉丝量'),
-        create_pie(df, '最多投稿分区', 'UP主投稿'),
+        create_pie(df),
     )
-    page.render("分析数据.html")
+    page.render("{}的关注分析.html".format(uid))
 
 
 if __name__ == "__main__":
-    out_table_html()
+    out_table_html(5239084)

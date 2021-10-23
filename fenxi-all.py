@@ -6,14 +6,13 @@ import numpy as np
 from sqlalchemy import create_engine
 from pyecharts.charts import Pie, Page
 from pyecharts import options as opts
+
 config = biliconfig()
 
 HOST = config.host
 USER = config.user
 PASSWORD = config.password
 PORT = config.port
-
-# MySQL拿数据
 
 
 def get_data():
@@ -41,32 +40,28 @@ def user_following_df(uid, df):
     return userDf
 
 
-# 生成图表
-# 生成基础饼图
-
-
 def create_pie(df) -> Pie:
     fans = df['十万粉丝'].value_counts().to_dict()
     vip = df['大会员'].value_counts().to_dict()
     area = df['最多投稿分区'].value_counts().to_dict()
-    
+
     pie = (
         Pie(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
         .add(
-            "", 
+            "",
             [list(z) for z in zip(fans.keys(), fans.values())],
             radius=["20%", "50%"],
             center=["16%", "50%"],
             rosetype="radius",
             label_opts=opts.LabelOpts(is_show=False),)
         .add(
-            "", 
+            "",
             [list(z) for z in zip(vip.keys(), vip.values())],
             radius=["20%", "50%"],
             center=["48%", "50%"],
             rosetype="radius",)
         .add(
-            "", 
+            "",
             [list(z) for z in zip(area.keys(), area.values())],
             radius=["20%", "50%"],
             center=["80%", "50%"],

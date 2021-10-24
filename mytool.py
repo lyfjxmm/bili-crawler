@@ -1,6 +1,7 @@
 import configparser
 from requests import get
 from jsonpath import jsonpath
+import os
 
 
 def get_url(url, mode=None):
@@ -36,6 +37,7 @@ def dict_to_tuple(videodict):
 class biliconfig:
     def __init__(self):
         self.config = configparser.ConfigParser()
+        self.create_config()
         self.config.read(
             './config.ini', encoding='utf-8')
 
@@ -46,3 +48,18 @@ class biliconfig:
 
         self.biliname = self.config.get('Bili', 'username')
         self.bilipwd = self.config.get('Bili', 'password')
+
+    def create_config(self):
+        if not os.path.exists('config.ini'):
+            self.config.add_section('MySQL')
+            self.config.add_section('Bili')
+            self.config.set('MySQL', 'host', '')
+            self.config.set('MySQL', 'port', '0')
+            self.config.set('MySQL', 'user', '')
+            self.config.set('MySQL', 'password', '')
+            self.config.set('Bili', 'username', '')
+            self.config.set('Bili', 'password', '')
+            with open('./config.ini', 'w')as f:
+                self.config.write(f)
+        else:
+            pass

@@ -26,6 +26,8 @@ class BiliGui:
         s.theme_use('vista')
         # 添加组件
         self.add_notebook()  # 3个标签页
+        # 用户界面
+        self.get_data_page()
         # 设置界面
         self.config_page()
         self.addBtn()
@@ -48,6 +50,25 @@ class BiliGui:
         self.tab2 = self.add_tab_page('  特定用户  ')
         self.tab3 = self.add_tab_page('  设置  ')
         self.notebook.pack()
+# 获取数据页的具体设置
+
+    def get_data_page(self):
+        self.userFrame = ttk.LabelFrame(
+            self.tab2, text='选定uid用户', labelanchor='nw')
+        self.userFrame.place(relx=0.02, rely=0.01,
+                             relwidth=0.96, relheight=0.5)
+        Label(self.userFrame, text='uid', anchor='w', font=('宋体', 9), width=60,
+              height=1,).place(relx=0.02, rely=0)
+        self.biliuid = Entry(self.userFrame,
+                             width=30, bd=0,
+                             relief='solid',
+                             highlightcolor='#3AB7FF',
+                             highlightthickness=1,
+                             highlightbackground='#9096A2')
+        self.biliuid.place(relx=0.15, rely=0,
+                           relwidth=0.8, relheight=0.15)
+        
+
 # 设置页的具体设置
     # 添加文本标签
 
@@ -86,39 +107,57 @@ class BiliGui:
         bilipwd.set(BILIPWD)
 
         self.hostInput = Entry(self.sqlFrame,
-                               width=30,
+                               width=30, bd=0,
                                relief='solid',
+                               highlightcolor='#3AB7FF',
+                               highlightthickness=1,
+                               highlightbackground='#9096A2',
                                textvariable=host)
         self.hostInput.place(relx=0.15, rely=0.05,
                              relwidth=0.8, relheight=0.15)
         self.portInput = Entry(self.sqlFrame,
-                               width=30,
+                               width=30, bd=0,
                                relief='solid',
+                               highlightcolor='#3AB7FF',
+                               highlightthickness=1,
+                               highlightbackground='#9096A2',
                                textvariable=port)
         self.portInput.place(relx=0.15, rely=0.30,
                              relwidth=0.8, relheight=0.15)
         self.rootInput = Entry(self.sqlFrame,
-                               width=30,
+                               width=30, bd=0,
                                relief='solid',
+                               highlightcolor='#3AB7FF',
+                               highlightthickness=1,
+                               highlightbackground='#9096A2',
                                textvariable=root)
         self.rootInput.place(relx=0.15, rely=0.55,
                              relwidth=0.8, relheight=0.15)
         self.pwdInput = Entry(self.sqlFrame,
-                              width=30,
+                              width=30, bd=0,
                               relief='solid',
+                              highlightcolor='#3AB7FF',
+                              highlightthickness=1,
+                              highlightbackground='#9096A2',
                               show="*",
                               textvariable=pwd)
         self.pwdInput.place(relx=0.15, rely=0.80,
                             relwidth=0.8, relheight=0.15)
         self.bilinameInput = Entry(self.biliFrame,
-                                   width=30,
+                                   width=30, bd=0,
                                    relief='solid',
+                                   highlightcolor='#3AB7FF',
+                                   highlightthickness=1,
+                                   highlightbackground='#9096A2',
                                    textvariable=biliname)
         self.bilinameInput.place(relx=0.15, rely=0.1,
                                  relwidth=0.8, relheight=0.3)
         self.bilipwdInput = Entry(self.biliFrame,
-                                  width=30,
+                                  width=30, bd=0,
                                   relief='solid',
+                                  highlightcolor='#3AB7FF',
+                                  highlightthickness=1,
+                                  highlightbackground='#9096A2',
                                   show="*",
                                   textvariable=bilipwd)
         self.bilipwdInput.place(relx=0.15, rely=0.6,
@@ -149,7 +188,7 @@ class BiliGui:
     def addBtn(self):
         ttk.Button(self.tab1, width=8, text='创建数据库',
                    command=self.create_db).place(relx=0.02, rely=0.02, relheight=0.1, relwidth=0.5)
-        # 设置的保存按钮
+
         ttk.Button(self.tab3,
                    width=8,
                    text='保存信息',

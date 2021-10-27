@@ -1,11 +1,14 @@
 import os
 import subprocess
+import re
+import configparser
 from threading import Thread
 from tkinter import *
 from tkinter import ttk, filedialog
-import re
+from userinfo import insert_videoinfo, insert_view, insert_user_follow_uid
 from mytool import biliconfig
-import configparser
+from bilisql import SQLOperating
+from user import User
 config = biliconfig()
 
 
@@ -58,19 +61,20 @@ class BiliGui:
         self.userFrame.place(relx=0.02, rely=0.01,
                              relwidth=0.96, relheight=0.5)
         Label(self.userFrame, text='uid', anchor='w', font=('宋体', 9), width=60,
-              height=1,).place(relx=0.02, rely=0)
+              height=1,).place(relx=0.02, rely=0, relwidth=0.2)
         self.biliuid = Entry(self.userFrame,
-                             width=30, bd=0,
+                             width=20, bd=0,
                              relief='solid',
                              highlightcolor='#3AB7FF',
                              highlightthickness=1,
                              highlightbackground='#9096A2')
         self.biliuid.place(relx=0.15, rely=0,
                            relwidth=0.8, relheight=0.15)
-        
+
 
 # 设置页的具体设置
     # 添加文本标签
+
 
     def add_text_Lable(self, frame, label, y):
         Label(frame, text=label, anchor='w', font=('宋体', 9),
@@ -183,12 +187,33 @@ class BiliGui:
             config.write(f)
 
     def create_db(self):
-        pass
+        biliSql = SQLOperating()
+        biliSql.create_database()
+        biliSql.create_upinfo_table()
+
+    def get_user_follow(self):
+        biliuid = self.biliuid.get()
+        biliuser = User(biliuid)
+        insert_user_follow_uid(biliuser)
+
+    def update_user_follow_data(self):
+        insert_videoinfo()  # 更新投稿分区
+        insert_view()  # 更新播放，点赞，阅读数
 
     def addBtn(self):
         ttk.Button(self.tab1, width=8, text='创建数据库',
-                   command=self.create_db).place(relx=0.02, rely=0.02, relheight=0.1, relwidth=0.5)
-
+                   command=self.create_db).place(relx=0.02, rely=0.02, relwidth=0.5)
+        ttk.Button(self.tab1, text='导出报告').place(relx=0.02, rely=0.1)
+        ttk.Button(self.userFrame, text='获取关注', command=self.get_user_follow).place(
+            relx=0.02, rely=0.2, relwidth=0.3)
+        ttk.Button(self.userFrame, text='获取动态').place(
+            relx=0.34, rely=0.2, relwidth=0.3)
+        ttk.Button(self.userFrame, text='更新数据库', command=self.update_user_follow_data).place(
+            relx=0.66, rely=0.2, relwidth=0.3)
+        ttk.Button(self.userFrame, text='导出报告').place(
+            relx=0.02, rely=0.45, relwidth=0.3)
+        ttk.Button(self.userFrame, text='导出csv').place(
+            relx=0.34, rely=0.45, relwidth=0.3)
         ttk.Button(self.tab3,
                    width=8,
                    text='保存信息',

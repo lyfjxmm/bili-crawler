@@ -1,7 +1,7 @@
 import configparser
+import os
 from requests import get
 from jsonpath import jsonpath
-import os
 
 
 def get_url(url, mode=None):

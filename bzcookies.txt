@@ -1,0 +1,19 @@
+#LWP-Cookies-2.0
+Set-Cookie3: DedeUserID=549615854; path="/"; domain=".bigfun.cn"; path_spec; domain_dot; expires="2022-08-22 01:44:10Z"; version=0
+Set-Cookie3: DedeUserID__ckMd5=e25070fb57611818; path="/"; domain=".bigfun.cn"; path_spec; domain_dot; expires="2022-08-22 01:44:10Z"; version=0
+Set-Cookie3: SESSDATA="c60c4ef2%2C1661133649%2Cdde61*21"; path="/"; domain=".bigfun.cn"; path_spec; domain_dot; expires="2022-08-22 01:44:10Z"; HttpOnly=None; version=0
+Set-Cookie3: bili_jct=fb7b0bec03fdde71c1e4630e6511ef18; path="/"; domain=".bigfun.cn"; path_spec; domain_dot; expires="2022-08-22 01:44:10Z"; version=0
+Set-Cookie3: sid=hvh0r0b8; path="/"; domain=".bigfun.cn"; path_spec; domain_dot; expires="2023-02-23 02:00:50Z"; version=0
+Set-Cookie3: DedeUserID=549615854; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: DedeUserID__ckMd5=e25070fb57611818; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: SESSDATA="c60c4ef2%2C1661133649%2Cdde61*21"; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; HttpOnly=None; version=0
+Set-Cookie3: b_ut=5; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2023-02-23 02:00:51Z"; version=0
+Set-Cookie3: bili_jct=fb7b0bec03fdde71c1e4630e6511ef18; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: buvid3="757E28C1-B942-30E6-CA1E-16EB1B3D6A9251210infoc"; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2023-02-23 02:00:51Z"; version=0
+Set-Cookie3: i-wanna-go-back="-1"; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2023-02-23 02:00:51Z"; version=0
+Set-Cookie3: sid=6ndakio3; path="/"; domain=".bilibili.com"; path_spec; domain_dot; expires="2023-02-23 02:00:23Z"; version=0
+Set-Cookie3: DedeUserID=549615854; path="/"; domain=".biligame.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: DedeUserID__ckMd5=e25070fb57611818; path="/"; domain=".biligame.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: SESSDATA="c60c4ef2%2C1661133649%2Cdde61*21"; path="/"; domain=".biligame.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; HttpOnly=None; version=0
+Set-Cookie3: bili_jct=fb7b0bec03fdde71c1e4630e6511ef18; path="/"; domain=".biligame.com"; path_spec; domain_dot; expires="2022-08-22 01:44:09Z"; version=0
+Set-Cookie3: sid=751bwarf; path="/"; domain=".biligame.com"; path_spec; domain_dot; expires="2023-02-23 02:00:49Z"; version=0

@@ -39,7 +39,7 @@ class BrowsDriver:
         submit = self.wait.until(EC.element_to_be_clickable(
             (By.CLASS_NAME, 'btn-login')))
         submit.click()
-        sleep(7)
+        sleep(30)
     # 得到cookie
     def get_cookie(self):
         cookie_items = self.driver.get_cookies()

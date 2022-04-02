@@ -2,13 +2,18 @@ import os
 import subprocess
 import re
 import configparser
+import qrlogin
+from io import BytesIO
 from threading import Thread
 from tkinter import *
 from tkinter import ttk, filedialog
+
+from matplotlib import image
 from userinfo import insert_videoinfo, insert_view, insert_user_follow_uid
 from mytool import biliconfig
 from bilisql import SQLOperating
 from user import User
+from PIL import Image, ImageTk
 config = biliconfig()
 
 
@@ -33,6 +38,7 @@ class BiliGui:
         self.get_data_page()
         # 设置界面
         self.config_page()
+        self.QR_page()
         self.addBtn()
 
         self.root.resizable(0, 0)
@@ -52,7 +58,21 @@ class BiliGui:
         self.tab1 = self.add_tab_page('  所有数据  ')
         self.tab2 = self.add_tab_page('  特定用户  ')
         self.tab3 = self.add_tab_page('  设置  ')
+        self.tab4 = self.add_tab_page('  扫码登录  ')
         self.notebook.pack()
+
+    def QR_page(self):
+        self.qrFrame = ttk.LabelFrame(
+            self.tab4, text='请打开APP端扫码二维码登录', labelanchor='nw')
+        self.qrFrame.place(relx=0.02, rely=0.01, relwidth=0.96, relheight=0.8)
+
+        # qrcode = Image.open(qrlogin.get_QRcode())
+        # qrcode = ImageTk.PhotoImage(qrcode.resize((256, 256), Image.ANTIALIAS))
+        # qrimage = Label(self.qrFrame, image=qrcode)
+        # qrimage.image = qrcode
+        # qrimage.pack()
+
+
 # 获取数据页的具体设置
 
     def get_data_page(self):
@@ -168,7 +188,7 @@ class BiliGui:
                                 relwidth=0.8, relheight=0.3)
 # 添加按钮，赋予按钮事件
 
-    def save_info(self):
+    def save_info(self):  # 保存信息按钮
         host = self.hostInput.get()
         port = self.portInput.get()
         root = self.rootInput.get()
@@ -185,6 +205,14 @@ class BiliGui:
         config.set('Bili', 'password', bilipwd)
         with open('./config.ini', 'w')as f:
             config.write(f)
+
+    def qrcode_show(self):  # 获取二维码图片
+
+        qrcode = Image.open(qrlogin.get_QRcode())
+        qrcode = ImageTk.PhotoImage(qrcode.resize((256, 256), Image.ANTIALIAS))
+        qrimage = Label(self.qrFrame, image=qrcode)
+        qrimage.image = qrcode
+        qrimage.pack()
 
     def create_db(self):
         biliSql = SQLOperating()
@@ -218,6 +246,10 @@ class BiliGui:
                    width=8,
                    text='保存信息',
                    command=self.save_info).place(relx=0.02, rely=0.86, relheight=0.1, relwidth=0.96)
+        ttk.Button(self.tab4, width=8, text='获取二维码', command=self.qrcode_show).place(
+            relx=0.02, rely=0.86, relheight=0.1, relwidth=0.76)
+        ttk.Button(self.tab4, width=8, text='注销', ).place(
+            relx=0.78, rely=0.86, relheight=0.1, relwidth=0.20)
 
 
 if __name__ == '__main__':

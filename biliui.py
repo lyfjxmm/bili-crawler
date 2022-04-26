@@ -1,8 +1,9 @@
+from ast import Not
 import os
 import subprocess
 import re
 import configparser
-import qrlogin
+from qrlogin import Qrlogin
 from io import BytesIO
 from threading import Thread
 from tkinter import *
@@ -24,6 +25,18 @@ PORT = config.port
 BILINAME = config.biliname
 BILIPWD = config.bilipwd
 
+class photo(Thread):
+    def __init__(self,frame):
+        Thread.__init__(self)
+        self.frame=frame
+    def run(self):
+
+        qr = Qrlogin()
+        status = qr.is_cookie_exist()
+        if not status:
+            qr.show_QRcode_img(self.frame)
+            qr.login()
+      
 
 class BiliGui:
     def __init__(self):
@@ -207,12 +220,9 @@ class BiliGui:
             config.write(f)
 
     def qrcode_show(self):  # 获取二维码图片
-
-        qrcode = Image.open(qrlogin.get_QRcode())
-        qrcode = ImageTk.PhotoImage(qrcode.resize((256, 256), Image.ANTIALIAS))
-        qrimage = Label(self.qrFrame, image=qrcode)
-        qrimage.image = qrcode
-        qrimage.pack()
+        # 检测本地是否有
+        t = photo(self.qrFrame)
+        t.start()
 
     def create_db(self):
         biliSql = SQLOperating()

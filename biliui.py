@@ -3,12 +3,14 @@ import os
 import subprocess
 import re
 import configparser
+from xml.dom import UserDataHandler
+import bilidynamic
+from lxml import etree
 from qrlogin import Qrlogin
 from io import BytesIO
 from threading import Thread
 from tkinter import *
 from tkinter import ttk, filedialog
-
 from matplotlib import image
 from userinfo import insert_videoinfo, insert_view, insert_user_follow_uid
 from mytool import biliconfig
@@ -234,6 +236,14 @@ class BiliGui:
         biliuser = User(biliuid)
         insert_user_follow_uid(biliuser)
 
+    def get_dynamic(self):
+        biliuid = int(self.biliuid.get())
+        bilidynamic.getData(biliuid)
+        tree = etree.HTML(bilidynamic.useLocalData(biliuid))
+        bilidynamic.dynamicAnalyse(tree)
+
+        bilidynamic.tagAnalyse(tree)
+
     def update_user_follow_data(self):
         insert_videoinfo()  # 更新投稿分区
         insert_view()  # 更新播放，点赞，阅读数
@@ -244,7 +254,7 @@ class BiliGui:
         ttk.Button(self.tab1, text='导出报告').place(relx=0.02, rely=0.1)
         ttk.Button(self.userFrame, text='获取关注', command=self.get_user_follow).place(
             relx=0.02, rely=0.2, relwidth=0.3)
-        ttk.Button(self.userFrame, text='获取动态').place(
+        ttk.Button(self.userFrame, text='获取动态', command=self.get_dynamic).place(
             relx=0.34, rely=0.2, relwidth=0.3)
         ttk.Button(self.userFrame, text='更新数据库', command=self.update_user_follow_data).place(
             relx=0.66, rely=0.2, relwidth=0.3)

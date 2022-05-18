@@ -115,7 +115,7 @@ def tagAnalyse(tree):
     # 成分统计
     print('成分分析'.center(20, '*'))
     #  #文本# 出现率TOP5
-    keywordlist = tree.xpath('//*[@id="page-dynamic"]/text()')
+    keywordlist = tree.xpath('//*[@class="bili-rich-text-topic"]/text()')
     taglist = Counter([i for i in keywordlist if '#' in i])
     top5list = taglist.most_common(5)
     print('动态中包含tag Top5：')
@@ -131,11 +131,11 @@ def tagAnalyse(tree):
     print('一共参与动态抽奖'+str(drawList)+'次')
 
 
-if __name__ == '__main__':
-    uid = 5239084
-    getData(uid)
-    tree = etree.HTML(useLocalData(uid))
-    dynamicAnalyse(tree)
+# if __name__ == '__main__':
+#     uid = 5239084
+#     getData(uid)
+#     tree = etree.HTML(useLocalData(uid))
+#     dynamicAnalyse(tree)
 
-    # 看看成分
-    tagAnalyse(tree)
+#     # 看看成分
+#     tagAnalyse(tree)

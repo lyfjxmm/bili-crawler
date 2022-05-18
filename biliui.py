@@ -4,6 +4,7 @@ import subprocess
 import re
 import configparser
 import fenxiuser
+import output
 import fenxiall
 from xml.dom import UserDataHandler
 import bilidynamic
@@ -258,6 +259,10 @@ class BiliGui:
     def fenxi_user(self):
         biliuid = int(self.biliuid.get())
         fenxiuser.out_table_html(biliuid)
+    
+    def out_csv(self):
+        df =output.get_coon()
+        output.tocsv(df)
 
     def addBtn(self):
         ttk.Button(self.tab1, width=8, text='创建数据库',
@@ -271,7 +276,7 @@ class BiliGui:
             relx=0.66, rely=0.2, relwidth=0.3)
         ttk.Button(self.userFrame, text='导出报告',command=self.fenxi_user).place(
             relx=0.02, rely=0.45, relwidth=0.3)
-        ttk.Button(self.userFrame, text='导出csv').place(
+        ttk.Button(self.userFrame, text='导出csv',command=self.out_csv).place(
             relx=0.34, rely=0.45, relwidth=0.3)
         ttk.Button(self.tab3,
                    width=8,

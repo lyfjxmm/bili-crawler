@@ -1,9 +1,12 @@
+from cv2 import add, line
+from matplotlib.lines import Line2D
+from matplotlib.pyplot import bar
 from pyecharts.globals import ThemeType
 from mytool import biliconfig
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
-from pyecharts.charts import Pie, Page
+from pyecharts.charts import Pie, Page,Bar
 from pyecharts import options as opts
 
 config = biliconfig()
@@ -61,15 +64,54 @@ def create_pie(df) -> Pie:
     )
     return pie
 
+def  create_bar(df:pd.DataFrame) -> Bar:
+    ups = df['用户名'].to_list()
+    views = df['播放数'].to_list()
+    fans = df['粉丝数'].to_list()
+    likes = df['获赞数'].to_list()
+    reads = df['阅读数'].to_list()
+    bar=(
+        Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
+        .add_xaxis(ups)
+        .add_yaxis('播放量',views)
+        .add_yaxis('粉丝数',fans)
+        .add_yaxis('获赞数', likes)
+        .add_yaxis('阅读数', reads)
+        .set_global_opts(
+            title_opts=opts.TitleOpts(title="基础数据统计"),
+            xaxis_opts = opts.AxisOpts(axislabel_opts=opts.LabelOpts(rotate=-45)),
+            datazoom_opts=opts.DataZoomOpts(),
+            )
+    )
+    return bar
+
+def create_bar_1(df:pd.DataFrame)->Bar:
+    ups = df['用户名'].to_list()
+    df['比例'] = df.apply(lambda x: x.粉丝数/((x.播放数)/(x.总投稿数+1)), axis=1)
+    fansEff = df['比例'].to_list()
+    bar=(
+        Bar(init_opts=opts.InitOpts(theme=ThemeType.LIGHT))
+        .add_xaxis(ups)
+        .add_yaxis('活跃度',fansEff)
+        .set_global_opts(
+            title_opts=opts.TitleOpts(title="粉丝活跃度"),
+            xaxis_opts=opts.AxisOpts(
+                axislabel_opts=opts.LabelOpts(rotate=-45)),
+            datazoom_opts=opts.DataZoomOpts(),
+        )
+    )
+    return bar
 
 def out_table_html():
     df = get_data()
     page = Page(layout=Page.SimplePageLayout)
     page.add(
         create_pie(df),
+        create_bar(df),
+        create_bar_1(df),
     )
     page.render("总表数据分析.html")
 
 
-# if __name__ == "__main__":
-#     out_table_html()
+if __name__ == "__main__":
+    out_table_html()

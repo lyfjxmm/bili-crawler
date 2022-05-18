@@ -24,7 +24,7 @@ df['十万粉丝'] = df.apply(lambda x: '十万粉以上' if x.粉丝数 > 10000
 df.drop(df.columns[13:36], axis=1, inplace=True)
 # 导出csv
 path = './B站UP主数据.csv'
-df.to_csv(path, index=False)
+
 # 导出报告
 lieming = [column for column in df]
 pinyin = [Pinyin().get_pinyin(_) for _ in lieming]
@@ -32,3 +32,5 @@ df.columns = pinyin
 porfile = pandas_profiling.ProfileReport(df)
 filepath = './关系报告.html'
 porfile.to_file(filepath)
+def tocsv():
+    df.to_csv(path, index=False)

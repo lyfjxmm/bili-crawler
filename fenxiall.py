@@ -71,5 +71,5 @@ def out_table_html():
     page.render("总表数据分析.html")
 
 
-if __name__ == "__main__":
-    out_table_html()
+# if __name__ == "__main__":
+#     out_table_html()

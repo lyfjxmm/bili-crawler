@@ -3,6 +3,8 @@ import os
 import subprocess
 import re
 import configparser
+import fenxiuser
+import fenxiall
 from xml.dom import UserDataHandler
 import bilidynamic
 from lxml import etree
@@ -27,10 +29,12 @@ PORT = config.port
 BILINAME = config.biliname
 BILIPWD = config.bilipwd
 
+
 class photo(Thread):
-    def __init__(self,frame):
+    def __init__(self, frame):
         Thread.__init__(self)
-        self.frame=frame
+        self.frame = frame
+
     def run(self):
 
         qr = Qrlogin()
@@ -38,7 +42,7 @@ class photo(Thread):
         if not status:
             qr.show_QRcode_img(self.frame)
             qr.login()
-      
+
 
 class BiliGui:
     def __init__(self):
@@ -90,6 +94,7 @@ class BiliGui:
 
 # 获取数据页的具体设置
 
+
     def get_data_page(self):
         self.userFrame = ttk.LabelFrame(
             self.tab2, text='选定uid用户', labelanchor='nw')
@@ -109,7 +114,6 @@ class BiliGui:
 
 # 设置页的具体设置
     # 添加文本标签
-
 
     def add_text_Lable(self, frame, label, y):
         Label(frame, text=label, anchor='w', font=('宋体', 9),
@@ -248,17 +252,24 @@ class BiliGui:
         insert_videoinfo()  # 更新投稿分区
         insert_view()  # 更新播放，点赞，阅读数
 
+    def fenxi_all(self):
+        fenxiall.out_table_html()
+
+    def fenxi_user(self):
+        biliuid = int(self.biliuid.get())
+        fenxiuser.out_table_html(biliuid)
+
     def addBtn(self):
         ttk.Button(self.tab1, width=8, text='创建数据库',
                    command=self.create_db).place(relx=0.02, rely=0.02, relwidth=0.5)
-        ttk.Button(self.tab1, text='导出报告').place(relx=0.02, rely=0.1)
+        ttk.Button(self.tab1, text='导出报告',command=self.fenxi_all).place(relx=0.02, rely=0.1)
         ttk.Button(self.userFrame, text='获取关注', command=self.get_user_follow).place(
             relx=0.02, rely=0.2, relwidth=0.3)
         ttk.Button(self.userFrame, text='获取动态', command=self.get_dynamic).place(
             relx=0.34, rely=0.2, relwidth=0.3)
         ttk.Button(self.userFrame, text='更新数据库', command=self.update_user_follow_data).place(
             relx=0.66, rely=0.2, relwidth=0.3)
-        ttk.Button(self.userFrame, text='导出报告').place(
+        ttk.Button(self.userFrame, text='导出报告',command=self.fenxi_user).place(
             relx=0.02, rely=0.45, relwidth=0.3)
         ttk.Button(self.userFrame, text='导出csv').place(
             relx=0.34, rely=0.45, relwidth=0.3)

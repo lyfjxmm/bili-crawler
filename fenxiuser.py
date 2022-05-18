@@ -73,5 +73,5 @@ def out_table_html(uid):
     page.render("{}的关注分析.html".format(uid))
 
 
-if __name__ == "__main__":
-    out_table_html(5239084)
+# if __name__ == "__main__":
+#     out_table_html(5239084)

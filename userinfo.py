@@ -10,7 +10,7 @@ from views import BrowsDriver
 def get_upinfo(uidlist):
     upInfoList = []
     for i in track(uidlist, description='获取up主基础信息中'):
-        sleep(1)
+        sleep(0.5)
         up = User(i)
         up.basic_info()
         upInfoList.append(up.back_info())
@@ -33,7 +33,7 @@ def insert_videoinfo(bilisql=SQLOperating()):
         up = User(i)
         videodict = up.up_video()
         insertSQLvideolist.append(dict_to_tuple(videodict))
-        sleep(1)
+        sleep(0.5)
     bilisql.insert_up_video_area(insertSQLvideolist)
 
 # ２个方法，第一个方法，利用selenium打开页面获取信息，速度相当快

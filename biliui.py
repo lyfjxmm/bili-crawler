@@ -264,6 +264,14 @@ class BiliGui:
         df =output.get_coon()
         output.tocsv(df)
 
+    def del_cookie(self):
+        if os.path.exists('bzcookies.txt'):
+            os.remove('bzcookies.txt')
+            print('已注销')
+        else:
+            print('还没有登录')
+    
+
     def addBtn(self):
         ttk.Button(self.tab1, width=8, text='创建数据库',
                    command=self.create_db).place(relx=0.02, rely=0.02, relwidth=0.5)
@@ -284,7 +292,7 @@ class BiliGui:
                    command=self.save_info).place(relx=0.02, rely=0.86, relheight=0.1, relwidth=0.96)
         ttk.Button(self.tab4, width=8, text='获取二维码', command=self.qrcode_show).place(
             relx=0.02, rely=0.86, relheight=0.1, relwidth=0.76)
-        ttk.Button(self.tab4, width=8, text='注销', ).place(
+        ttk.Button(self.tab4, width=8, text='注销', command=self.del_cookie).place(
             relx=0.78, rely=0.86, relheight=0.1, relwidth=0.20)
 
 

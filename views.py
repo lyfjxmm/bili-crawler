@@ -36,9 +36,9 @@ class BrowsDriver:
             "login-username").send_keys(self.username)
         self.driver.find_element_by_id(
             "login-passwd").send_keys(self.password)
-        submit = self.wait.until(EC.element_to_be_clickable(
-            (By.CLASS_NAME, 'btn-login')))
-        submit.click()
+        # submit = self.wait.until(EC.element_to_be_clickable(
+        #     (By.CLASS_NAME, 'btn-login')))
+        # submit.click()
         sleep(40)
     # 得到cookie
     def get_cookie(self):
@@ -65,7 +65,7 @@ class BrowsDriver:
             readView = jsinfo(viewinfo, '.data.article.view')
             upViewInfo = (likes, videoView, readView, i)
             viewList.append(upViewInfo)
-            sleep(1)
+            sleep(0.5)
         return viewList
     # 用selenium，很快啊
     def open_up_space(self, uidlist):
